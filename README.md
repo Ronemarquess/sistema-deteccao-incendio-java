@@ -8,24 +8,25 @@ Desenvolver uma solução que detecte condições de risco de incêndio por meio
 
 ## Estado atual
 
-O repositório está em fase inicial de desenvolvimento. Até o momento, há um modelo Java básico para usuários e bombeiros:
+O repositório está em fase inicial de desenvolvimento. Até o momento, há uma aplicação Spring Boot com banco H2 em memória e estes modelos Java:
 
 - `Usuario` é uma classe abstrata com dados de perfil e um método para exibir o perfil.
 - `Bombeiro` estende `Usuario` e sobrescreve a exibição do perfil.
+- `Sensor` e `LeituraSensor` representam sensores e suas medições, com validações Jakarta e mapeamento JPA.
 - `docs/TAREFAS.md` contém o backlog de evolução do projeto.
 
-Ainda não há configuração de Maven ou Gradle, aplicação Spring Boot inicializável, API, banco de dados, testes automatizados ou firmware implementado. Portanto, o sistema ainda não pode ser executado como uma aplicação completa, e a integração com sensores permanece como trabalho futuro.
+Ainda não há endpoints da API, serviços/repositórios de aplicação, testes automatizados ou firmware implementado. O banco H2 em memória não mantém os dados após o encerramento da aplicação; a integração com sensores permanece como trabalho futuro.
 
 ## Próximas evoluções
 
 As etapas estão detalhadas e priorizadas em [`docs/TAREFAS.md`](docs/TAREFAS.md). Em resumo:
 
-1. Confirmar os requisitos e critérios de avaliação; escolher versões de Java, Spring Boot e a forma de comunicação IoT.
-2. Configurar o projeto para compilação e execução, incluindo uma aplicação inicializável.
-3. Implementar e testar o domínio de sensores, leituras, ocorrências e despacho.
-4. Criar uma API e persistência para receber leituras e consultar alertas.
+1. Confirmar os requisitos e critérios de avaliação e a forma de comunicação IoT.
+2. Expandir e testar o domínio de sensores, leituras, ocorrências e despacho.
+3. Criar serviços, repositórios e endpoints para receber leituras e consultar alertas.
+4. Substituir ou configurar persistência durável conforme o escopo definido.
 5. Desenvolver e validar o firmware/dispositivo IoT e sua comunicação com o serviço.
-6. Concluir testes, diagramas, instruções de execução e demonstração.
+6. Concluir testes, diagramas e preparação da demonstração.
 
 ## Estrutura existente
 
@@ -35,19 +36,38 @@ docs/
 	diagramas/
 	prototipos/
 src/
-	main/java/br/com/estacio/incendio/model/
-		Usuario.java
-		Bombeiro.java
-	test/java/br/com/estacio/incendio/
+	main/java/br/com/estacio/incendio/
+		IncendioApplication.java
+		model/
+			Usuario.java
+			Bombeiro.java
+			Sensor.java
+			LeituraSensor.java
+	test/java/br/com/estacio/incendio/ (a criar)
 hardware/
 	esp32_firmware/
 ```
 
-As pastas de diagramas, protótipos, testes e firmware ainda precisam receber os artefatos correspondentes. A presença de uma pasta não significa que a funcionalidade esteja implementada.
+Os pacotes de `controller`, `service`, `repository` e `dto`, assim como testes, diagramas, protótipos e firmware, ainda precisam receber suas implementações. A presença de uma pasta não significa que a funcionalidade esteja implementada.
 
-## Execução
+## Pré-requisitos e execução
 
-Ainda não há comando de compilação ou execução definido. Essa instrução será adicionada quando a configuração do projeto Java e a classe de inicialização estiverem implementadas. Consulte o backlog antes de considerar o sistema pronto para demonstração.
+- Java 17
+- Maven 3.6.3 ou superior
+
+Compile e execute os testes:
+
+```shell
+mvn test
+```
+
+Inicie a aplicação Spring Boot:
+
+```shell
+mvn spring-boot:run
+```
+
+O projeto inicia o banco H2 em memória; não é necessário instalar ou configurar um banco externo. Ainda não há endpoints implementados.
 
 ## Equipe e contexto acadêmico
 

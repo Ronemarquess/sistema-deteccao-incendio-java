@@ -8,28 +8,29 @@ Backlog do **Sistema de Detecção Precoce de Incêndios IoT**. Marque uma taref
 - [x] `Usuario.java`: classe abstrata com dados básicos e exibição de perfil.
 - [x] `Bombeiro.java`: especialização de usuário com matrícula, patente e sobrescrita do perfil.
 - [x] README inicial do projeto.
+- [x] Build Maven com Spring Boot, aplicação inicializável e entidades JPA para sensores e leituras.
 
-Ainda não foram encontrados build Maven/Gradle, classe principal Spring Boot, testes, API, persistência ou firmware. Esses itens não devem ser descritos como concluídos no relatório.
+Ainda não há testes automatizados, API com endpoints, repositórios/serviços de aplicação ou firmware. A aplicação inicia com banco H2 em memória; persistência durável e integração com sensores permanecem como trabalho futuro.
 
 ## Prioridade 0: fechar o escopo
 
 - [ ] Obter os requisitos e critérios de avaliação da disciplina e registrar as funcionalidades obrigatórias.
 - [ ] Confirmar integrantes, papéis, entregáveis e prazo com a equipe.
-- [ ] Definir versão do Java e ferramenta de build; decidir se Spring Boot é realmente requisito.
+- [x] Definir versão do Java e ferramenta de build; decidir se Spring Boot é realmente requisito.
 - [ ] Definir quais riscos serão detectados (por exemplo, temperatura e fumaça) e quais sensores/dispositivos serão usados.
 - [ ] Escolher como o dispositivo enviará dados (por exemplo, HTTP ou MQTT) e documentar a decisão.
 - [ ] Definir o que significa alerta crítico, como a urgência será calculada e quem poderá despachar uma equipe.
 
 ## Prioridade 1: tornar o projeto executável
 
-- [ ] Criar a configuração de build e dependências do projeto Java.
-- [ ] Criar a classe de inicialização e a configuração mínima do Spring Boot, se essa tecnologia for confirmada.
-- [ ] Adicionar instruções reproduzíveis para compilar, executar e testar.
+- [x] Criar a configuração de build e dependências do projeto Java.
+- [x] Criar a classe de inicialização e a configuração mínima do Spring Boot, se essa tecnologia for confirmada.
+- [x] Adicionar instruções reproduzíveis para compilar, executar e testar.
 - [ ] Confirmar que a estrutura de código e testes é reconhecida pela ferramenta de build.
 
 ## Prioridade 2: completar o domínio e testar regras
 
-- [ ] Modelar sensores e leituras com identificador, tipo, localização, valor e instante da medição, conforme o escopo acordado.
+- [x] Modelar sensores e leituras com identificador, tipo, localização, valor e instante da medição, conforme o escopo acordado.
 - [ ] Implementar as classes concretas dos sensores escolhidos e suas regras de limite crítico.
 - [ ] Implementar uma ocorrência/alerta que associe leituras relevantes, avalie a urgência e registre seu estado.
 - [ ] Definir o despacho como uma ação de domínio verificável, sem alegar integração real com equipes antes de implementá-la.
