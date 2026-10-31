@@ -13,9 +13,10 @@ O repositório está em fase inicial de desenvolvimento. Até o momento, há uma
 - `Usuario` é uma classe abstrata com dados de perfil e um método para exibir o perfil.
 - `Bombeiro` estende `Usuario` e sobrescreve a exibição do perfil.
 - `Sensor` e `LeituraSensor` representam sensores e suas medições, com validações Jakarta e mapeamento JPA.
+- `frontend-incendio` contém um centro de comando React + TypeScript com simulador local e seletor de cinco idiomas.
 - `docs/TAREFAS.md` contém o backlog de evolução do projeto.
 
-Ainda não há endpoints da API, serviços/repositórios de aplicação, testes automatizados ou firmware implementado. O banco H2 em memória não mantém os dados após o encerramento da aplicação; a integração com sensores permanece como trabalho futuro.
+Ainda não há endpoints da API, serviços/repositórios de aplicação, testes automatizados ou firmware implementado. O dashboard informa quando a API está indisponível e diferencia os dados locais de demonstração. O banco H2 em memória não mantém os dados após o encerramento da aplicação; a integração com sensores permanece como trabalho futuro.
 
 ## Próximas evoluções
 
@@ -27,6 +28,10 @@ As etapas estão detalhadas e priorizadas em [`docs/TAREFAS.md`](docs/TAREFAS.md
 4. Substituir ou configurar persistência durável conforme o escopo definido.
 5. Desenvolver e validar o firmware/dispositivo IoT e sua comunicação com o serviço.
 6. Concluir testes, diagramas e preparação da demonstração.
+
+## Front-end
+
+Consulte [frontend-incendio/README.md](frontend-incendio/README.md) para os requisitos, instalação, execução e verificação do dashboard.
 
 ## Estrutura existente
 
