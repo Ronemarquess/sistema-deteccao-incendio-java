@@ -26,7 +26,7 @@ Ainda não há testes automatizados, API com endpoints, repositórios/serviços 
 - [x] Criar a configuração de build e dependências do projeto Java.
 - [x] Criar a classe de inicialização e a configuração mínima do Spring Boot, se essa tecnologia for confirmada.
 - [x] Adicionar instruções reproduzíveis para compilar, executar e testar.
-- [ ] Confirmar que a estrutura de código e testes é reconhecida pela ferramenta de build.
+- [x] Confirmar que a estrutura de código e testes é reconhecida pela ferramenta de build.
 
 ## Prioridade 2: completar o domínio e testar regras
 
@@ -34,14 +34,14 @@ Ainda não há testes automatizados, API com endpoints, repositórios/serviços 
 - [ ] Implementar as classes concretas dos sensores escolhidos e suas regras de limite crítico.
 - [ ] Implementar uma ocorrência/alerta que associe leituras relevantes, avalie a urgência e registre seu estado.
 - [ ] Definir o despacho como uma ação de domínio verificável, sem alegar integração real com equipes antes de implementá-la.
-- [ ] Revisar validações e encapsulamento dos modelos existentes; não armazenar ou exibir senhas em texto puro.
+- [x] Revisar validações e encapsulamento dos modelos existentes; não armazenar ou exibir senhas em texto puro.
 - [ ] Criar testes unitários para limites, leituras inválidas, cálculo de urgência e transições de estado.
 
 ## Prioridade 3: criar o serviço de aplicação
 
 - [ ] Definir endpoints para receber leituras e consultar sensores e alertas, caso uma API REST seja aprovada.
 - [ ] Validar entradas e retornar erros consistentes para requisições inválidas.
-- [ ] Escolher e configurar persistência; documentar como iniciar o banco e preparar o esquema.
+- [x] Escolher e configurar persistência; documentar como iniciar o banco e preparar o esquema.
 - [ ] Separar modelos de domínio, objetos de entrada/saída e regras de negócio quando necessário.
 - [ ] Proteger endpoints e credenciais; documentar autenticação e autorização compatíveis com o escopo acadêmico.
 - [ ] Criar testes de integração para os fluxos principais da API e persistência.
@@ -60,7 +60,7 @@ Ainda não há testes automatizados, API com endpoints, repositórios/serviços 
 - [ ] Criar diagrama de arquitetura e sequência do fluxo dispositivo → serviço → alerta.
 - [ ] Adicionar protótipo de interface ou painel somente se fizer parte dos requisitos confirmados.
 - [ ] Executar e registrar testes; incluir evidências reproduzíveis e resultados reais da demonstração.
-- [ ] Atualizar README com pré-requisitos, configuração, comandos, exemplos e limitações.
+- [x] Atualizar README com pré-requisitos, configuração, comandos, exemplos e limitações.
 - [ ] Preparar roteiro de demonstração e relatório acadêmico; distinguir claramente o que está pronto e o que é proposta futura.
 - [ ] Revisar acessibilidade, segurança, tratamento de dados e limitações antes da apresentação.
 
