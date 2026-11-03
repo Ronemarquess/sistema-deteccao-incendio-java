@@ -7,8 +7,9 @@ Backlog do **Sistema de Detecção Precoce de Incêndios IoT**. Marque uma taref
 - [x] Estrutura inicial de diretórios e repositório Git.
 - [x] `Usuario.java`: classe abstrata com dados básicos e exibição de perfil.
 - [x] `Bombeiro.java`: especialização de usuário com matrícula, patente e sobrescrita do perfil.
-- [x] README inicial do projeto.
+- [x] README.md com estado atual, comandos locais, limitações e próximos passos.
 - [x] Build Maven com Spring Boot, aplicação inicializável e entidades JPA para sensores e leituras.
+- [x] Protótipo do painel React + TypeScript com dados locais de demonstração e seletor de cinco idiomas; ainda sem integração funcional com a API.
 
 Ainda não há testes automatizados, API com endpoints, repositórios/serviços de aplicação ou firmware. A aplicação inicia com banco H2 em memória; persistência durável e integração com sensores permanecem como trabalho futuro.
 
@@ -58,7 +59,7 @@ Ainda não há testes automatizados, API com endpoints, repositórios/serviços 
 
 - [ ] Criar diagrama de casos de uso e diagrama de classes atualizados com o código.
 - [ ] Criar diagrama de arquitetura e sequência do fluxo dispositivo → serviço → alerta.
-- [ ] Adicionar protótipo de interface ou painel somente se fizer parte dos requisitos confirmados.
+- [x] Implementar protótipo inicial do painel web em modo de demonstração; confirmar com a orientação se o escopo atende aos requisitos da disciplina.
 - [ ] Executar e registrar testes; incluir evidências reproduzíveis e resultados reais da demonstração.
 - [x] Atualizar README com pré-requisitos, configuração, comandos, exemplos e limitações.
 - [ ] Preparar roteiro de demonstração e relatório acadêmico; distinguir claramente o que está pronto e o que é proposta futura.
