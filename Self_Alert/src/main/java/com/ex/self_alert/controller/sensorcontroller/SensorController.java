@@ -34,11 +34,14 @@ public class SensorController{
     }
 
     @PutMapping("/{id}")
-    public SensorResponse atualizar(PathVariable UUID id, @RequestBody @Valid SensorRequest request){
-        return service.registrarLeitura(id, request);
+    public SensorResponse atualizar(@PathVariable UUID id, @RequestBody @Valid SensorRequest request){
+        return service.atualizar(id, request);
     }
 
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void remover(@PathVariable UUID id){
+        service.deletar(id);
+    }
 }
