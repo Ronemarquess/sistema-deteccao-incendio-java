@@ -1,12 +1,12 @@
-package com.ex.self_alert.dto;
-
-import com.ex.self_alert.model.sensormodel.Sensor;
-import com.ex.self_alert.model.sensormodel.SensorTemperatura;
-import com.ex.self_alert.model.sensormodel.StatusSensor;
-import com.ex.self_alert.model.sensormodel.TipoSensor;
+package com.ex.self_alert.dto.sensor;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+
+import com.ex.self_alert.model.sensor.Sensor;
+import com.ex.self_alert.model.sensor.SensorTemperatura;
+import com.ex.self_alert.model.sensor.StatusSensor;
+import com.ex.self_alert.model.sensor.TipoSensor;
 
 public record SensorResponse(
         UUID id,

@@ -1,4 +1,4 @@
-package com.ex.self_alert.model.sensormodel;
+package com.ex.self_alert.model.sensor;
 
 import jakarta.persistence.*;
 import lombok.Getter;

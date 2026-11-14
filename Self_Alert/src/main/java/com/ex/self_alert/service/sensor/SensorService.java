@@ -1,13 +1,14 @@
-package com.ex.self_alert.service.sensorservice;
+package com.ex.self_alert.service.sensor;
 
-import com.ex.self_alert.dto.LeituraRequest;
-import com.ex.self_alert.dto.SensorRequest;
-import com.ex.self_alert.dto.SensorResponse;
+import com.ex.self_alert.dto.sensor.LeituraRequest;
+import com.ex.self_alert.dto.sensor.SensorRequest;
+import com.ex.self_alert.dto.sensor.SensorResponse;
 import com.ex.self_alert.exception.RecursoNaoEncontradoException;
-import com.ex.self_alert.model.sensormodel.Sensor;
-import com.ex.self_alert.model.sensormodel.SensorFumaca;
-import com.ex.self_alert.model.sensormodel.SensorTemperatura;
-import com.ex.self_alert.repository.sensorrepository.SensorRepository;
+import com.ex.self_alert.model.sensor.Sensor;
+import com.ex.self_alert.model.sensor.SensorFumaca;
+import com.ex.self_alert.model.sensor.SensorTemperatura;
+import com.ex.self_alert.repository.sensor.SensorRepository;
+
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -39,7 +40,7 @@ public class SensorService{
     }
 
     public List<SensorResponse> findAll(){
-        return repository.findAll().stream().map(SensorResponse::de).toList();
+     return repository.findAll().stream().map(SensorResponse::de).collect(java.util.stream.Collectors.toList());
     }
 
     public SensorResponse buscar(UUID id){
@@ -64,7 +65,7 @@ public class SensorService{
         return SensorResponse.de(repository.save(sensor));
     }
 
-    public void deletar(UUID id){
+    public void remove(UUID id){
         repository.delete(buscarEntidade(id));
     }
 

@@ -1,10 +1,11 @@
-package com.ex.self_alert.controller.sensorcontroller;
+package com.ex.self_alert.controller.sensor;
 
 
-import com.ex.self_alert.dto.LeituraRequest;
-import com.ex.self_alert.dto.SensorRequest;
-import com.ex.self_alert.dto.SensorResponse;
-import com.ex.self_alert.service.sensorservice.SensorService;
+import com.ex.self_alert.dto.sensor.LeituraRequest;
+import com.ex.self_alert.dto.sensor.SensorRequest;
+import com.ex.self_alert.dto.sensor.SensorResponse;
+import com.ex.self_alert.service.sensor.SensorService;
+
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,8 @@ import java.util.UUID;
 @RequestMapping("/sensores")
 
 public class SensorController{
+
+  
 
     private final SensorService service;
     public SensorController(SensorService service){
@@ -33,15 +36,24 @@ public class SensorController{
         return service.buscar(id);
     }
 
+    @GetMapping
+    public List<SensorResponse> listar(){
+        return service.findAll();
+    }
+
     @PutMapping("/{id}")
     public SensorResponse atualizar(@PathVariable UUID id, @RequestBody @Valid SensorRequest request){
         return service.atualizar(id, request);
+    }
+    @PatchMapping("/{id}/leitura")
+    public SensorResponse registrarLeitura(@PathVariable UUID id, @RequestBody @Valid LeituraRequest request){
+        return service.registrarLeitura(id, request);
     }
 
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void remover(@PathVariable UUID id){
-        service.deletar(id);
+    public void remove(@PathVariable UUID id){
+        service.remove(id);
     }
 }
