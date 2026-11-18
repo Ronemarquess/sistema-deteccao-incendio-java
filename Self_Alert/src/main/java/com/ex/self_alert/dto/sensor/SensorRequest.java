@@ -10,6 +10,6 @@ public record SensorRequest(
     @NotBlank String local,
     @NotNull  Double latitude,
     @NotNull Double longitude,
-    @NotBlank TipoSensor tipo
+    @NotNull TipoSensor tipo
 )
 {}
