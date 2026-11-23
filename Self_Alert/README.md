@@ -1,4 +1,4 @@
-# Sistema de Detecção Precoce de Incêndios IoT
+git# Sistema de Detecção Precoce de Incêndios IoT
 
 > Projeto acadêmico da Estácio para a disciplina do professor Luiz Santos.
 
