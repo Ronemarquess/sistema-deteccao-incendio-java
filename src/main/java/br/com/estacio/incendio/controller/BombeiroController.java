@@ -22,7 +22,7 @@ import br.com.estacio.incendio.service.BombeiroService;
 
 @RestController
 @RequestMapping("/api/bombeiros")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = {"http://localhost:5173", "https://frontend-incendio.vercel.app"})
 public class BombeiroController {
     private final BombeiroService bombeiroService;
 

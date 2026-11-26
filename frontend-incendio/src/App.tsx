@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type KeyboardEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LazyMotion, MotionConfig, domAnimation, m, useScroll, useTransform } from 'framer-motion'
 import { AppIcon, type IconName } from './components/icons'
@@ -80,7 +80,11 @@ function App() {
   const [readings, setReadings] = useState(initialReadings)
   const [apiError, setApiError] = useState<string | null>(null)
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null)
+  const [showFireConfirmation, setShowFireConfirmation] = useState(false)
+  const [cameraDetection, setCameraDetection] = useState<'idle' | 'pending' | 'dismissed' | 'confirmed'>('idle')
   const extinguishTimer = useRef<number | undefined>(undefined)
+  const cancelConfirmationButton = useRef<HTMLButtonElement>(null)
+  const confirmConfirmationButton = useRef<HTMLButtonElement>(null)
   const { scrollYProgress } = useScroll()
   const flameOpacity = useTransform(scrollYProgress, [0, 0.45], [1, 0.4])
   const flameScale = useTransform(scrollYProgress, [0, 0.45], [1, 0.72])
@@ -88,6 +92,10 @@ function App() {
   useEffect(() => {
     document.documentElement.lang = i18n.language === 'pt' ? 'pt-BR' : i18n.language
   }, [i18n.language])
+
+  useEffect(() => {
+    if (showFireConfirmation) cancelConfirmationButton.current?.focus()
+  }, [showFireConfirmation])
 
   useEffect(() => {
     const controller = new AbortController()
@@ -121,6 +129,8 @@ function App() {
   }, [t])
 
   const simulateFire = () => {
+    setShowFireConfirmation(false)
+    setCameraDetection('confirmed')
     const newTemperature = Math.floor(Math.random() * 11) + 85
     const newReading: LeituraSensor = {
       id: Date.now(),
@@ -134,6 +144,36 @@ function App() {
     setIsFireActive(true)
     setIsExtinguishing(false)
     playAlarm()
+  }
+
+  const analyzeCamera = () => {
+    setCameraDetection('pending')
+    setShowFireConfirmation(true)
+  }
+
+  const dismissFireConfirmation = () => {
+    setShowFireConfirmation(false)
+    setCameraDetection('dismissed')
+  }
+
+  const handleConfirmationKeyDown = (event: KeyboardEvent<HTMLElement>) => {
+    if (event.key === 'Escape') {
+      event.preventDefault()
+      dismissFireConfirmation()
+      return
+    }
+
+    if (event.key === 'Tab') {
+      const firstButton = cancelConfirmationButton.current
+      const lastButton = confirmConfirmationButton.current
+      if (event.shiftKey && document.activeElement === firstButton) {
+        event.preventDefault()
+        lastButton?.focus()
+      } else if (!event.shiftKey && document.activeElement === lastButton) {
+        event.preventDefault()
+        firstButton?.focus()
+      }
+    }
   }
 
   const extinguishFire = () => {
@@ -152,6 +192,7 @@ function App() {
     )
     setIsFireActive(false)
     setIsExtinguishing(true)
+    setCameraDetection('idle')
     window.clearTimeout(extinguishTimer.current)
     extinguishTimer.current = window.setTimeout(() => setIsExtinguishing(false), 2200)
   }
@@ -241,6 +282,53 @@ function App() {
             <span className="incident-reference">{isFireActive ? 'INC-2026-0842' : t('incident.noIncidents')}</span>
           </section>
 
+          <section className="camera-monitor glass-panel" aria-labelledby="camera-title">
+            <div className="camera-monitor-heading">
+              <div>
+                <div className="panel-overline">{t('camera.overline')}</div>
+                <h2 id="camera-title">{t('camera.title')}</h2>
+                <p>{t('camera.description')}</p>
+              </div>
+              <span className={`camera-status${cameraDetection === 'confirmed' || cameraDetection === 'pending' ? ' camera-status-alert' : ''}`}>
+                <span />
+                {cameraDetection === 'pending' || cameraDetection === 'confirmed'
+                  ? t('camera.statusAlert')
+                  : cameraDetection === 'dismissed'
+                    ? t('camera.statusDismissed')
+                    : t('camera.statusDemo')}
+              </span>
+            </div>
+            <div className="camera-monitor-content">
+              <div
+                className={`camera-feed${cameraDetection === 'pending' || cameraDetection === 'confirmed' ? ' camera-feed-detected' : ''}`}
+                role="img"
+                aria-label={t('camera.feedDescription')}
+              >
+                <div className="camera-horizon" />
+                <div className="camera-tree camera-tree-left" />
+                <div className="camera-tree camera-tree-center" />
+                <div className="camera-tree camera-tree-right" />
+                <div className="camera-scanline" />
+                <div className="camera-feed-top"><span><i /> REC</span><span>CAM 01 · 1080p</span></div>
+                <div className="camera-target"><span /><span /><span /><span /></div>
+                {(cameraDetection === 'pending' || cameraDetection === 'confirmed') && (
+                  <div className="camera-detection-box"><AppIcon name="flame" size={17} />{t('camera.possibleFire')}</div>
+                )}
+                <div className="camera-feed-bottom"><span>{t('camera.location')}</span><span>DEMO · {new Date().toLocaleTimeString(i18n.language, { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</span></div>
+              </div>
+              <div className="camera-monitor-actions">
+                <div className="camera-analysis-copy">
+                  <AppIcon name="activity" size={17} />
+                  <span>{t('camera.analysisNote')}</span>
+                </div>
+                <button className="action-button action-simulate camera-analyze-button" type="button" onClick={analyzeCamera} disabled={isFireActive}>
+                  <AppIcon name="camera" size={16} />{t('camera.analyze')}
+                </button>
+                <p className="simulation-note">{t('camera.safetyNote')}</p>
+              </div>
+            </div>
+          </section>
+
           <section className="dashboard-grid">
             <article className={`fire-panel glass-panel${isFireActive ? ' fire-panel-active' : ''}${isExtinguishing ? ' fire-panel-extinguishing' : ''}`}>
               <div className="panel-heading">
@@ -288,7 +376,7 @@ function App() {
               <div className="meter-labels"><span>0°C</span><span>{t('firePanel.warningThreshold')}</span><span>100°C</span></div>
 
               <div className="response-actions">
-                <button className="action-button action-simulate" type="button" onClick={simulateFire}>
+                <button className="action-button action-simulate" type="button" onClick={analyzeCamera}>
                   <AppIcon name="flame" size={16} />{t('firePanel.simulate')}
                 </button>
                 <button className="action-button action-dispatch" type="button" onClick={extinguishFire} disabled={!isFireActive}>
@@ -372,6 +460,31 @@ function App() {
             <span><span className="footer-live-dot" />{t('footer.heartbeat')}</span>
           </footer>
         </main>
+        {showFireConfirmation && (
+          <div className="fire-confirm-backdrop">
+            <section
+              className="fire-confirm-dialog"
+              role="alertdialog"
+              aria-modal="true"
+              aria-labelledby="fire-confirm-title"
+              aria-describedby="fire-confirm-description"
+              onKeyDown={handleConfirmationKeyDown}
+            >
+              <span className="fire-confirm-icon"><AppIcon name="siren" size={23} /></span>
+              <div className="panel-overline">{t('camera.confirmOverline')}</div>
+              <h2 id="fire-confirm-title">{t('camera.confirmTitle')}</h2>
+              <p id="fire-confirm-description">{t('camera.confirmDescription')}</p>
+              <div className="fire-confirm-actions">
+                <button ref={cancelConfirmationButton} className="fire-confirm-no" type="button" onClick={dismissFireConfirmation}>
+                  {t('camera.confirmNo')}
+                </button>
+                <button ref={confirmConfirmationButton} className="fire-confirm-yes" type="button" onClick={simulateFire}>
+                  <AppIcon name="flame" size={15} />{t('camera.confirmYes')}
+                </button>
+              </div>
+            </section>
+          </div>
+        )}
       </div>
       </LazyMotion>
     </MotionConfig>

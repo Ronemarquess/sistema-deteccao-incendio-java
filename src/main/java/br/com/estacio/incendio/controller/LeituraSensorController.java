@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.estacio.incendio.model.LeituraSensor;
+import br.com.estacio.incendio.dto.LeituraSensorResponseDTO;
 import br.com.estacio.incendio.repository.LeituraSensorRepository;
 
 @RestController
 @RequestMapping("/api/leituras")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = {"http://localhost:5173", "https://frontend-incendio.vercel.app"})
 public class LeituraSensorController {
     private final LeituraSensorRepository leituraSensorRepository;
 
@@ -21,7 +21,9 @@ public class LeituraSensorController {
     }
 
     @GetMapping
-    public List<LeituraSensor> listarTodas() {
-        return leituraSensorRepository.findAll();
+    public List<LeituraSensorResponseDTO> listarTodas() {
+        return leituraSensorRepository.findAll().stream()
+                .map(LeituraSensorResponseDTO::fromEntity)
+                .toList();
     }
 }

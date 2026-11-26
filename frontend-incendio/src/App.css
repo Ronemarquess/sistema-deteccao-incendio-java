@@ -81,6 +81,46 @@
 .status-danger .status-dot { background: #ff5548; box-shadow: 0 0 9px rgba(255,85,72,0.75); }
 .incident-reference { margin-left: 9px; color: #708096; font: 400 9px 'DM Mono', monospace; }
 
+.camera-monitor { margin-bottom: 15px; padding: 16px; }
+.camera-monitor-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.camera-monitor-heading h2 { margin: 5px 0 3px; color: #e4ebf3; font: 600 14px 'Manrope', sans-serif; }
+.camera-monitor-heading p { color: #8190a4; font-size: 9px; }
+.camera-status { display: flex; align-items: center; gap: 7px; padding: 6px 9px; border: 1px solid rgba(57,203,139,0.2); border-radius: 20px; color: #65d6a2; background: rgba(57,203,139,0.07); font: 500 8px 'DM Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; }
+.camera-status > span, .camera-feed-top i { width: 6px; height: 6px; border-radius: 50%; background: #45c98b; box-shadow: 0 0 7px rgba(69,201,139,0.55); }
+.camera-status-alert { border-color: rgba(255,85,72,0.3); color: #ff7167; background: rgba(204,17,0,0.1); }
+.camera-status-alert > span { background: #ff5548; box-shadow: 0 0 7px #ff5548; animation: blink 0.7s infinite alternate; }
+.camera-monitor-content { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(190px, .75fr); gap: 16px; margin-top: 12px; }
+.camera-feed { position: relative; min-height: 190px; overflow: hidden; border: 1px solid rgba(120,163,151,0.2); border-radius: 8px; background: linear-gradient(180deg, #1d3440 0%, #31483e 52%, #182b26 100%); isolation: isolate; }
+.camera-feed::before { position: absolute; z-index: -1; inset: 0; content: ''; background: linear-gradient(180deg, transparent 47%, rgba(12,26,23,.18) 48%, rgba(8,18,18,.65) 100%), repeating-linear-gradient(0deg, rgba(220,244,221,.025) 0 1px, transparent 1px 4px); }
+.camera-feed::after { position: absolute; z-index: -1; right: -5%; bottom: -40%; left: -5%; height: 80%; border-radius: 50% 50% 0 0; background: linear-gradient(180deg, rgba(103,132,88,.8), #182a25 75%); content: ''; }
+.camera-horizon { position: absolute; z-index: -1; right: 0; bottom: 30%; left: 0; height: 2px; background: rgba(196,207,157,.19); box-shadow: 0 8px 26px rgba(197,215,164,.12); }
+.camera-tree { position: absolute; z-index: -1; bottom: 24%; width: 0; height: 0; border-right: 36px solid transparent; border-bottom: 110px solid #20372f; border-left: 36px solid transparent; filter: drop-shadow(18px 22px 0 rgba(18,39,33,.65)); }
+.camera-tree::after { position: absolute; top: 31px; left: -21px; width: 42px; height: 80px; background: linear-gradient(90deg, #302d25, #514534, #292a23); content: ''; clip-path: polygon(39% 0, 61% 0, 65% 100%, 34% 100%); }
+.camera-tree-left { left: 8%; transform: scale(1.05); }
+.camera-tree-center { bottom: 30%; left: 44%; transform: scale(.72); opacity: .8; }
+.camera-tree-right { right: 11%; transform: scale(1.2); }
+.camera-feed-top, .camera-feed-bottom { position: absolute; right: 10px; left: 10px; display: flex; align-items: center; justify-content: space-between; color: rgba(224,238,222,.78); font: 400 8px 'DM Mono', monospace; letter-spacing: .04em; text-shadow: 0 1px 4px #07110d; }
+.camera-feed-top { top: 9px; }
+.camera-feed-top > span:first-child { display: flex; align-items: center; gap: 5px; color: #ff8a80; }
+.camera-feed-top i { background: #ff5548; }
+.camera-feed-bottom { bottom: 9px; color: rgba(220,233,218,.7); }
+.camera-target { position: absolute; top: 29%; left: 49%; width: 48px; height: 48px; border: 1px solid rgba(159,220,181,.42); transform: translate(-50%, -50%); transition: width 180ms, height 180ms, border-color 180ms; }
+.camera-target span { position: absolute; width: 7px; height: 7px; border-color: #b6e4c4; border-style: solid; }
+.camera-target span:nth-child(1) { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
+.camera-target span:nth-child(2) { top: -1px; right: -1px; border-width: 1px 1px 0 0; }
+.camera-target span:nth-child(3) { right: -1px; bottom: -1px; border-width: 0 1px 1px 0; }
+.camera-target span:nth-child(4) { bottom: -1px; left: -1px; border-width: 0 0 1px 1px; }
+.camera-feed-detected .camera-target { width: 83px; height: 61px; border-color: #ff675b; box-shadow: 0 0 18px rgba(255,70,55,.14); }
+.camera-feed-detected .camera-target span { border-color: #ff7b70; }
+.camera-detection-box { position: absolute; top: 50%; left: 50%; display: flex; align-items: center; gap: 5px; padding: 5px 7px; border: 1px solid rgba(255,98,84,.58); border-radius: 4px; color: #ff9a90; background: rgba(89,20,20,.62); font: 500 8px 'DM Mono', monospace; letter-spacing: .04em; text-transform: uppercase; transform: translate(-50%, -50%); }
+.camera-scanline { position: absolute; z-index: 1; top: 0; right: 0; left: 0; height: 1px; background: rgba(165,238,193,.24); box-shadow: 0 0 8px rgba(165,238,193,.3); animation: camera-scan 5s linear infinite; }
+.camera-monitor-actions { display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+.camera-analysis-copy { display: flex; align-items: flex-start; gap: 8px; color: #9eafc2; font-size: 10px; line-height: 1.5; }
+.camera-analysis-copy svg { flex: 0 0 auto; color: #83b9df; }
+.camera-analyze-button { min-height: 40px; }
+.camera-analyze-button:disabled { opacity: .5; cursor: not-allowed; }
+.camera-monitor-actions .simulation-note { font-size: 8px; line-height: 1.5; }
+
 .dashboard-grid { display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr); gap: 15px; }
 .glass-panel { border: 1px solid var(--stroke); border-radius: 11px; background: linear-gradient(145deg, rgba(22, 36, 56, 0.85), rgba(15, 27, 44, 0.82)); box-shadow: 0 14px 40px rgba(0,0,0,0.09); backdrop-filter: blur(14px); }
 .fire-panel { padding: 19px 20px 14px; overflow: hidden; }
@@ -193,10 +233,22 @@
 
 .is-alarming .incident-banner .incident-copy strong { color: #ffaaa2; }
 
+.fire-confirm-backdrop { position: fixed; z-index: 20; inset: 0; display: grid; place-items: center; padding: 20px; background: rgba(5,10,19,.78); backdrop-filter: blur(7px); }
+.fire-confirm-dialog { width: min(420px, 100%); box-sizing: border-box; padding: 25px; border: 1px solid rgba(255,85,72,.25); border-radius: 14px; color: var(--text); background: linear-gradient(145deg, #17253a, #101b2c); box-shadow: 0 24px 80px rgba(0,0,0,.45); }
+.fire-confirm-icon { width: 42px; height: 42px; display: grid; place-items: center; margin-bottom: 17px; border: 1px solid rgba(255,85,72,.22); border-radius: 11px; color: #ff7065; background: rgba(204,17,0,.12); }
+.fire-confirm-dialog h2 { margin: 7px 0; font: 700 19px 'Manrope', sans-serif; }
+.fire-confirm-dialog > p { margin: 0; color: #9aa9bb; font-size: 12px; line-height: 1.6; }
+.fire-confirm-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 22px; }
+.fire-confirm-actions button { min-height: 40px; display: flex; align-items: center; justify-content: center; gap: 7px; padding: 8px 10px; border: 1px solid transparent; border-radius: 7px; font: 600 10px 'DM Sans', sans-serif; cursor: pointer; }
+.fire-confirm-actions button:focus-visible { outline: 2px solid #78bdec; outline-offset: 3px; }
+.fire-confirm-no { border-color: rgba(148,163,184,.2) !important; color: #c0cad6; background: rgba(255,255,255,.04); }
+.fire-confirm-yes { border-color: rgba(255,87,68,.4) !important; color: #fff0ee; background: linear-gradient(100deg, #9f211b, #741c1b); }
+
 @keyframes blink { to { opacity: 0.35; } }
 @keyframes flame-flicker { from { transform: rotate(-2deg) scale(0.98); } to { transform: rotate(2deg) scale(1.05); } }
 @keyframes aura-pulse { from { opacity: 0.7; } to { opacity: 1; } }
 @keyframes banner-pulse { from { box-shadow: 0 0 0 rgba(204,17,0,0); } to { box-shadow: 0 0 22px rgba(204,17,0,0.11); } }
+@keyframes camera-scan { from { transform: translateY(0); } to { transform: translateY(190px); } }
 
 @media (min-width: 1400px) { .page-shell { padding-top: 52px; } .fire-scene { height: 214px; } }
 @media (max-width: 900px) {
@@ -223,6 +275,10 @@
   .incident-reference { display: none; }
   .incident-copy span { max-width: 210px; font-size: 9px; line-height: 1.4; }
   .incident-status { padding: 5px 6px; font-size: 7px; }
+  .camera-monitor { padding: 12px; }
+  .camera-monitor-content { grid-template-columns: 1fr; }
+  .camera-feed { min-height: 180px; }
+  .camera-monitor-actions { gap: 8px; }
   .dashboard-grid { grid-template-columns: 1fr; }
   .side-column { grid-template-rows: auto auto; }
   .fire-scene { height: 178px; }

@@ -1,5 +1,11 @@
 import axios from 'axios'
-import type { LeituraSensor, Sensor } from '../types'
+import type {
+  BombeiroRequest,
+  BombeiroResponse,
+  LeituraSensor,
+  LoginRequest,
+  Sensor,
+} from '../types'
 
 export const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8080/api',
@@ -17,5 +23,15 @@ export async function getSensores(signal?: AbortSignal): Promise<Sensor[]> {
 
 export async function getLeituras(signal?: AbortSignal): Promise<LeituraSensor[]> {
   const { data } = await api.get<LeituraSensor[]>('/leituras', { signal })
+  return data
+}
+
+export async function cadastrarBombeiro(request: BombeiroRequest): Promise<BombeiroResponse> {
+  const { data } = await api.post<BombeiroResponse>('/bombeiros', request)
+  return data
+}
+
+export async function loginBombeiro(request: LoginRequest): Promise<BombeiroResponse> {
+  const { data } = await api.post<BombeiroResponse>('/bombeiros/login', request)
   return data
 }

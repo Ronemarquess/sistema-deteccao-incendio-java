@@ -10,6 +10,7 @@ export type IconName =
   | 'arrow-down-right'
   | 'arrow-up-right'
   | 'bell'
+  | 'camera'
   | 'check'
   | 'chevron-down'
   | 'clock'
@@ -29,6 +30,7 @@ const glyphs: Record<IconName, ReactNode> = {
   'arrow-down-right': <><path d="M7 7 17 17" /><path d="M17 7v10H7" /></>,
   'arrow-up-right': <><path d="M7 17 17 7" /><path d="M7 7h10v10" /></>,
   bell: <><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" /><path d="M10 21h4" /></>,
+  camera: <><path d="M14 4h-4L8 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-4Z" /><circle cx="12" cy="13" r="3" /></>,
   check: <><path d="m5 12 4 4L19 6" /></>,
   'chevron-down': <><path d="m6 9 6 6 6-6" /></>,
   clock: <><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></>,
