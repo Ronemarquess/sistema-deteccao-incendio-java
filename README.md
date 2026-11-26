@@ -10,11 +10,12 @@ O projeto propõe um sistema de monitoramento de riscos de incêndio com sensore
 
 ### O que já funciona
 
-- **Backend:** aplicação Spring Boot 3.5.6 com Java 17, inicializável por Maven.
+- **Backend:** aplicação Spring Boot 3.5.6 com Java 17+, executável pelo Maven Wrapper incluído.
 - **Modelos Java:** `Sensor`, `LeituraSensor` e `Bombeiro` têm mapeamento JPA. A API de bombeiros oferece cadastro, login com senhas BCrypt, consulta, atualização e desativação lógica.
-- **Banco de dados:** dependência do H2 configurada para uso em memória. Os dados não são persistidos após o encerramento da aplicação.
+- **Banco de dados:** H2 em memória com carga inicial de um bombeiro, sensores e leituras para apresentação. Os dados não são persistidos após o encerramento da aplicação.
 - **Painel web:** interface React + TypeScript com visualização de sensores, leituras de demonstração, indicadores e estados de ocorrência.
 - **Demonstração local:** permite simular uma ocorrência e a sua extinção na interface, com efeitos visuais e alerta sonoro no navegador. A simulação não aciona equipes reais.
+- **Monitoramento visual:** inclui uma câmera ilustrativa e uma confirmação Sim/Não antes de ativar o alerta demonstrativo. Não há webcam conectada nem detecção real por IA.
 - **Idiomas:** o painel oferece Português, Inglês, Espanhol, Francês e Alemão.
 - **Consulta da API:** o frontend consulta `/api/sensores` e `/api/leituras` em `http://localhost:8080` a cada 15 segundos. A base pode ser alterada com `VITE_API_BASE_URL` no ambiente do frontend.
 
@@ -74,15 +75,21 @@ O painel é um protótipo acadêmico. Seus dados de demonstração e simulaçõe
 
 ### Backend
 
-Com Java 17 e Maven instalados, execute na raiz do repositório:
+Com um JDK 17 ou superior instalado, execute na raiz do repositório pelo PowerShell:
 
 ```shell
-mvn spring-boot:run
+.\mvnw.cmd spring-boot:run
 ```
 
 O backend inicia localmente com H2 em memória. A API de bombeiros fica disponível em `http://localhost:8080/api/bombeiros`; as consultas de sensores e leituras usadas pelo painel ficam em `/api/sensores` e `/api/leituras`.
 
-Cadastro não cria bombeiro seed por padrão. Use `POST /api/bombeiros` para registrar um usuário e depois `POST /api/bombeiros/login`; senhas são armazenadas com BCrypt. O login valida credenciais, mas ainda não emite token nem protege os demais endpoints.
+O banco vazio é preenchido com o bombeiro `rone@bombeiros.se.gov.br` / `123456`, além de três sensores e três leituras. A senha do seed é armazenada com BCrypt. O endpoint de login valida credenciais, mas ainda não emite token nem protege os demais endpoints.
+
+Para compilar o back-end:
+
+```shell
+.\mvnw.cmd clean compile
+```
 
 ### Frontend
 
@@ -93,6 +100,8 @@ cd frontend-incendio
 npm install
 npm run dev
 ```
+
+Depois de instalar as dependências uma vez, também é possível iniciar o front-end com duplo clique em `iniciar-frontend.bat`, na raiz do projeto.
 
 O Vite informa o endereço local do painel, normalmente `http://localhost:5173`.
 
