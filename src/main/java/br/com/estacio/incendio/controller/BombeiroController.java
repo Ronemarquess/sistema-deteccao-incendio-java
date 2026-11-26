@@ -3,7 +3,6 @@ package br.com.estacio.incendio.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +21,6 @@ import br.com.estacio.incendio.service.BombeiroService;
 
 @RestController
 @RequestMapping("/api/bombeiros")
-@CrossOrigin(origins = {"http://localhost:5173", "https://frontend-incendio.vercel.app"})
 public class BombeiroController {
     private final BombeiroService bombeiroService;
 

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type KeyboardEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LazyMotion, MotionConfig, domAnimation, m, useScroll, useTransform } from 'framer-motion'
 import { AppIcon, type IconName } from './components/icons'
-import { getLeituras, getSensores } from './services/api'
+import { beginApiRefresh, getLeituras, getSensores, isDemoMode } from './services/api'
 import type { LeituraSensor, Sensor } from './types'
 import './App.css'
 
@@ -78,6 +78,7 @@ function App() {
   const [isExtinguishing, setIsExtinguishing] = useState(false)
   const [sensors, setSensors] = useState(initialSensors)
   const [readings, setReadings] = useState(initialReadings)
+  const [demoMode, setDemoMode] = useState(false)
   const [apiError, setApiError] = useState<string | null>(null)
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null)
   const [showFireConfirmation, setShowFireConfirmation] = useState(false)
@@ -101,6 +102,7 @@ function App() {
     const controller = new AbortController()
 
     const refreshData = async () => {
+      beginApiRefresh()
       try {
         const [sensorData, readingData] = await Promise.all([
           getSensores(controller.signal),
@@ -108,10 +110,12 @@ function App() {
         ])
         setSensors(sensorData)
         setReadings(readingData)
+        setDemoMode(isDemoMode())
         setApiError(null)
         setLastUpdated(new Date())
       } catch (error) {
         if (controller.signal.aborted) return
+        setDemoMode(isDemoMode())
         setLastUpdated(new Date())
         setApiError(
           error instanceof Error ? error.message : t('api.connectionError'),
@@ -262,11 +266,14 @@ function App() {
             </div>
           </section>
 
-          {apiError && (
+          {(apiError || demoMode) && (
             <div className="api-notice" role="status">
               <AppIcon name="cloud-off" size={17} />
-              <div><strong>{t('api.offline')}</strong><span>{t('api.offlineDetail')} — {apiError}</span></div>
-              <span className="demo-tag">{t('api.demoMode')}</span>
+              <div>
+                <strong>{demoMode ? t('api.demoMode') : t('api.offline')}</strong>
+                <span>{demoMode ? t('api.demoModeDetail') : `${t('api.offlineDetail')} — ${apiError}`}</span>
+              </div>
+              {demoMode && <span className="demo-tag">{t('api.demoMode')}</span>}
             </div>
           )}
 

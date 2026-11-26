@@ -17,7 +17,7 @@ O projeto propõe um sistema de monitoramento de riscos de incêndio com sensore
 - **Demonstração local:** permite simular uma ocorrência e a sua extinção na interface, com efeitos visuais e alerta sonoro no navegador. A simulação não aciona equipes reais.
 - **Monitoramento visual:** inclui uma câmera ilustrativa e uma confirmação Sim/Não antes de ativar o alerta demonstrativo. Não há webcam conectada nem detecção real por IA.
 - **Idiomas:** o painel oferece Português, Inglês, Espanhol, Francês e Alemão.
-- **Consulta da API:** o frontend consulta `/api/sensores` e `/api/leituras` em `http://localhost:8080` a cada 15 segundos. A base pode ser alterada com `VITE_API_BASE_URL` no ambiente do frontend.
+- **Consulta da API:** o frontend consulta `/api/sensores` e `/api/leituras` em `http://localhost:8080` a cada 15 segundos. A base pode ser configurada por `VITE_API_URL` no ambiente do frontend. Em falhas de rede, o frontend usa um modo de demonstração local com login, cadastro, sensores e leituras persistidos no navegador.
 
 ### O que ainda não está implementado
 

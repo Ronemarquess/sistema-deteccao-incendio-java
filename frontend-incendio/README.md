@@ -16,7 +16,7 @@ npm install
 npm run dev
 ```
 
-O Vite informa o endereço local, normalmente `http://localhost:5173`.
+O Vite informa o endereço local, normalmente `http://localhost:5173/`. A versão publicada está em `https://frontend-incendio.vercel.app/`.
 
 ## Verificação
 
@@ -27,7 +27,7 @@ npm run lint
 
 ## Integração e modo de demonstração
 
-O cliente Axios usa `VITE_API_BASE_URL` como base e, por padrão, consulta `http://localhost:8080/api`. Os endpoints `GET /sensores` e `GET /leituras` são tipados conforme os contratos Java; `POST /bombeiros` e `POST /bombeiros/login` também estão disponíveis por `cadastrarBombeiro` e `loginBombeiro` em `src/services/api.ts`. Para apontar o Vercel a uma API publicada, configure `VITE_API_BASE_URL` nas variáveis de ambiente do projeto; há um exemplo em `.env.example`. O backend permite CORS para `http://localhost:5173` e `https://frontend-incendio.vercel.app`. Quando a API não responde, a tela informa a indisponibilidade e mantém dados locais de demonstração. Os botões de simulação alteram somente o estado do navegador: não enviam comandos ao backend nem acionam equipes reais.
+O cliente Axios prioriza `VITE_API_URL` (base incluindo `/api`). Sem essa variável, `http://localhost:5173/` e `https://frontend-incendio.vercel.app/` consultam `http://localhost:8080/api`. Os endpoints `GET /sensores` e `GET /leituras` são tipados conforme os contratos Java; `POST /bombeiros` e `POST /bombeiros/login` também estão disponíveis por `cadastrarBombeiro` e `loginBombeiro` em `src/services/api.ts`. Para apontar o frontend a uma API publicada, configure `VITE_API_URL` nas variáveis de ambiente do Vercel; há um exemplo em `.env.example`. O backend permite CORS para `http://localhost:5173` e `https://frontend-incendio.vercel.app`. Se uma requisição falhar por erro de rede, consultas e autenticação/cadastro usam armazenamento de demonstração persistido no navegador, inicializado com o seed do backend (`rone@bombeiros.se.gov.br` / `123456`). O modo demo não mascara respostas HTTP de erro. Os botões de simulação alteram somente o estado do navegador: não enviam comandos ao backend nem acionam equipes reais.
 
 O seletor oferece Português, Inglês, Espanhol, Francês e Alemão. As traduções adicionais podem ser incluídas nos recursos de `src/i18n.ts`.
 
