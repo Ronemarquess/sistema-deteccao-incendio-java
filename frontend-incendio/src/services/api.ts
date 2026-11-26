@@ -2,7 +2,7 @@ import axios from 'axios'
 import type { LeituraSensor, Sensor } from '../types'
 
 export const api = axios.create({
-  baseURL: 'http://localhost:8080/api',
+  baseURL: import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8080/api',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',

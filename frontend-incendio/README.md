@@ -27,7 +27,7 @@ npm run lint
 
 ## Integração e modo de demonstração
 
-O cliente Axios usa `http://localhost:8080/api` como base e consulta `/sensores` e `/leituras`. O backend ainda não implementa esses endpoints; quando a API não responde, a tela informa a indisponibilidade e mantém dados locais de demonstração. Os botões de simulação alteram somente o estado do navegador: não enviam comandos ao backend nem acionam equipes reais.
+O cliente Axios usa `VITE_API_BASE_URL` como base e, por padrão, consulta `http://localhost:8080/api`. Os endpoints `GET /sensores` e `GET /leituras` estão disponíveis no backend. Para apontar o Vercel a uma API publicada, configure `VITE_API_BASE_URL` nas variáveis de ambiente do projeto; há um exemplo em `.env.example`. Quando a API não responde, a tela informa a indisponibilidade e mantém dados locais de demonstração. Os botões de simulação alteram somente o estado do navegador: não enviam comandos ao backend nem acionam equipes reais.
 
 O seletor oferece Português, Inglês, Espanhol, Francês e Alemão. As traduções adicionais podem ser incluídas nos recursos de `src/i18n.ts`.
 
