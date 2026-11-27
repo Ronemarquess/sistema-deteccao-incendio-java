@@ -1,0 +1,4 @@
+Copie aqui os arquivos do protótipo:
+  - safe-alert-logo.png (usado na tela de login)
+  - safe-alert-icon.png (usado no cabeçalho)
+Se ausentes, a interface exibe um fallback textual.

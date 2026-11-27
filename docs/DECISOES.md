@@ -12,3 +12,4 @@ Uma linha por decisão tomada diante de ambiguidades do prompt.
 - 2026-11-27: Testes automatizados usam SQLite em memória compartilhada, separado do arquivo `safe-alert.db` de desenvolvimento.
 - 2026-11-27: Credencial inválida retorna 401 (corpo de erro padronizado) para permitir mensagem inline no login; as demais regras de negócio retornam 409.
 - 2026-11-27: O chamado histórico `ENCERRADO` do seed usa `encerradoEm` fixo no início do dia para que "Encerrados hoje" seja 1 mesmo quando a aplicação inicia perto da meia-noite.
+- 2026-11-27: Como não havia frontend no repositório, o projeto Vite foi criado do zero; assets são lidos de `frontend-incendio/public/` com fallback textual, pois os PNGs do protótipo não estavam presentes.

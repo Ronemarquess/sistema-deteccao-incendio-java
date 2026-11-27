@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@theme {
+  --color-fundo: #22185b;
+  --color-painel: #080034;
+  --color-acao: #ed5533;
+  --color-borda: #c0e6f4;
+  --color-creme: #f1f7da;
+  --color-linha: #4a3fa0;
+  --color-suave: #b9b4e0;
+}
+
+:root {
+  color-scheme: dark;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 16px;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+  background: var(--color-fundo);
+}
+
+body {
+  overflow-x: hidden;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--color-borda);
+  outline-offset: 2px;
+}
+
+@keyframes pulsar-alerta {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(237, 85, 51, 0.7); }
+  50% { box-shadow: 0 0 0 6px rgba(237, 85, 51, 0); }
+}
+
+.borda-pulsante {
+  animation: pulsar-alerta 1.8s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .borda-pulsante {
+    border-color: var(--color-acao);
+  }
+}
+
+.leaflet-container {
+  font-family: inherit;
+}

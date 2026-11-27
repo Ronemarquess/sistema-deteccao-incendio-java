@@ -63,3 +63,6 @@ safe-alert.db-journal
 safe-alert.db-wal
 safe-alert.db-shm
 data/
+frontend-incendio/node_modules/
+frontend-incendio/dist/
+
