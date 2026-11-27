@@ -1,4 +1,4 @@
-Copie aqui os arquivos do protótipo:
-  - safe-alert-logo.png (usado na tela de login)
-  - safe-alert-icon.png (usado no cabeçalho)
-Se ausentes, a interface exibe um fallback textual.
+A logo do protótipo já está incluída aqui como safe-alert-logo.png.
+
+Ela é usada na tela de login, no cabeçalho e como ícone da aba do navegador.
+Se o arquivo for removido, a interface exibe um fallback textual.

@@ -1,6 +1,7 @@
-import { Flame, LogOut } from 'lucide-react';
+import { LogOut } from 'lucide-react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { Logo } from './Logo';
 
 const abas = [
   { to: '/chamados', rotulo: 'Chamados' },
@@ -28,11 +29,8 @@ export function Header() {
     <>
       <header className="sticky top-0 z-30 border-b border-linha bg-painel/95 backdrop-blur">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-3 px-4 py-3 md:flex-nowrap md:px-6">
-          <NavLink to="/chamados" className="flex min-h-11 items-center gap-2 text-white">
-            <span className="flex size-9 items-center justify-center rounded-xl bg-acao">
-              <Flame size={20} aria-hidden />
-            </span>
-            <span className="font-black tracking-widest">SAFE-ALERT</span>
+          <NavLink to="/chamados" className="flex min-h-11 items-center text-white" aria-label="SAFE-ALERT — início">
+            <Logo variante="pequena" />
           </NavLink>
 
           <nav aria-label="Navegação principal" className="order-3 w-full md:order-none md:w-auto md:flex-1">

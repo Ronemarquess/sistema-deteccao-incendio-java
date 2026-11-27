@@ -50,7 +50,7 @@ Abra o endereço informado pelo Vite e entre com:
 - **E-mail:** `rone@bombeiros.se.gov.br`
 - **Senha:** `123456`
 
-Se os PNGs do protótipo estiverem disponíveis, copie-os para `frontend-incendio/public/` com os nomes `safe-alert-logo.png` e `safe-alert-icon.png`. Sem eles, a interface usa um fallback textual.
+A logo do protótipo está incluída em `frontend-incendio/public/safe-alert-logo.png` e aparece no login, no cabeçalho e como ícone da aba do navegador. Se o arquivo for removido, a interface volta ao fallback textual.
 
 ## Roteiro de demonstração (acceptance)
 
