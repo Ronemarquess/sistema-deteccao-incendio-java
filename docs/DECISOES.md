@@ -13,4 +13,7 @@ Uma linha por decisão tomada diante de ambiguidades do prompt.
 - 2026-11-27: Credencial inválida retorna 401 (corpo de erro padronizado) para permitir mensagem inline no login; as demais regras de negócio retornam 409.
 - 2026-11-27: O chamado histórico `ENCERRADO` do seed usa `encerradoEm` fixo no início do dia para que "Encerrados hoje" seja 1 mesmo quando a aplicação inicia perto da meia-noite.
 - 2026-11-27: Como não havia frontend no repositório, o projeto Vite foi criado do zero; assets são lidos de `frontend-incendio/public/` com fallback textual, pois os PNGs do protótipo não estavam presentes.
-- 2026-11-27: O envio automático do simulador (3/5/10 s) é um intervalo no navegador; não há WebSocket/SSE ni agendamento no backend.
+- 2026-11-27: O envio automático do simulador (3/5/10 s) é um intervalo no navegador; não há WebSocket/SSE nem agendamento no backend.
+- 2026-11-27: Incluí as portas 5173 e 5174 em `safealert.cors.origens` porque a porta padrão do Vite já estava ocupada por outro projeto neste ambiente.
+- 2026-11-27: A checagem visual foi feita com Chromium headless conectado por CDP (o `puppeteer.launch` padrão não iniciava neste ambiente); os artefatos ficaram em `/tmp/opencode/visual`, fora do repositório.
+- 2026-11-27: Ajustei os links de navegação para `inline-flex` e os controles do Leaflet por CSS para garantir alvos de toque de pelo menos 44 px, conforme o critério de acessibilidade do painel.

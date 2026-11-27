@@ -10,7 +10,7 @@ const abas = [
 
 function classesAba({ isActive }: { isActive: boolean }) {
   return [
-    'min-h-11 px-4 py-2 rounded-full font-semibold transition-colors',
+    'inline-flex min-h-11 items-center justify-center px-4 py-2 rounded-full font-semibold transition-colors',
     isActive ? 'bg-acao text-white font-bold' : 'text-borda hover:bg-linha',
   ].join(' ');
 }

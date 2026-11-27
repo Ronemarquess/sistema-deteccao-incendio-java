@@ -1,70 +1,70 @@
 # Tarefas e evolução do projeto
 
-Backlog do **Sistema de Detecção Precoce de Incêndios IoT**. Marque uma tarefa como concluída somente depois de implementada e verificada. As tecnologias e os requisitos abaixo são propostas a confirmar com a equipe e com a orientação da disciplina.
+Checklist atualizado após a implementação. Um item só é marcado como concluído quando foi **implementado e verificado**. Quando a verificação foi parcial, isso está registrado explicitamente.
 
-## Já existe no repositório
+## Etapa 1 — build, execução e persistência
 
-- [x] Estrutura inicial de diretórios e repositório Git.
-- [x] `Usuario.java`: classe abstrata com dados básicos e exibição de perfil.
-- [x] `Bombeiro.java`: especialização de usuário com matrícula, patente e sobrescrita do perfil.
-- [x] README inicial do projeto.
+- [x] Build Maven com Java 17 e Spring Boot 4.1.2 executável via `./mvnw`.
+- [x] Configuração corrigida do datasource SQLite e do dialeto Hibernate (confirmado em inicialização real).
+- [x] SQLite em arquivo `safe-alert.db`, pool de 1 conexão e `PRAGMA foreign_keys=ON`.
+- [x] Banco de desenvolvimento ignorado pelo Git (incluindo journal/WAL/SHM).
+- [x] Persistência após reinício confirmada no baseline; com o modelo final, o banco foi recriado e o seed validado.
+- [x] Legado Docker documentado como fora do escopo, sem remoção dos arquivos.
 
-Ainda não foram encontrados build Maven/Gradle, classe principal Spring Boot, testes, API, persistência ou firmware. Esses itens não devem ser descritos como concluídos no relatório.
+## Etapa 2 — domínio, regras e seed
 
-## Prioridade 0: fechar o escopo
+- [x] Pacotes migrados para `br.com.estacio.incendio.*`.
+- [x] Entidades `Usuario`, `Bombeiro`, `Localizacao`, `Sensor`, `LeituraSensor`, `Chamado` e `Notificacao`.
+- [x] Enums `StatusChamado`, `NivelRisco`, `NivelFumaca` e `CanalNotificacao`.
+- [x] Regras de Atenção/Alerta/Crítico em `AvaliadorRisco`, com limites configuráveis.
+- [x] Chamado agrega sensores do mesmo local, calcula elevação e atualiza temperaturas máximas.
+- [x] Transições de estado encapsuladas: despacho, atendimento, falso alarme e encerramento.
+- [x] Notificação `PUSH` criada no despacho e registrada no log do backend.
+- [x] Login com BCrypt e senha do seed (`123456`) nunca armazenada em texto puro.
+- [x] Seed idempotente com bombeiro, 7 sensores, leituras normais e 2 chamados históricos.
+- [x] Testes unitários do avaliador (4) e das transições (5).
+- [x] Testes de integração dos fluxos de leitura/chamado (6).
 
-- [ ] Obter os requisitos e critérios de avaliação da disciplina e registrar as funcionalidades obrigatórias.
-- [ ] Confirmar integrantes, papéis, entregáveis e prazo com a equipe.
-- [ ] Definir versão do Java e ferramenta de build; decidir se Spring Boot é realmente requisito.
-- [ ] Definir quais riscos serão detectados (por exemplo, temperatura e fumaça) e quais sensores/dispositivos serão usados.
-- [ ] Escolher como o dispositivo enviará dados (por exemplo, HTTP ou MQTT) e documentar a decisão.
-- [ ] Definir o que significa alerta crítico, como a urgência será calculada e quem poderá despachar uma equipe.
+## Etapa 3 — API REST
 
-## Prioridade 1: tornar o projeto executável
+- [x] Controllers para bombeiros, sensores, leituras, chamados, configuração e simulação.
+- [x] DTOs de entrada/saída separados das entidades.
+- [x] Bean Validation e `RestControllerAdvice` com erros 400/401/404/409/500 padronizados.
+- [x] CORS lido de `safealert.cors.origens` (inclui 5173 e 5174).
+- [x] Transações `readOnly` nas consultas.
+- [x] `POST /api/simulacao/reset` condicionado a `safealert.simulacao.habilitada`.
+- [x] Fluxo validado por `curl`: login (certo e errado), leituras, chamados, despacho, encerramento, 409, 404, 400 e reset.
 
-- [ ] Criar a configuração de build e dependências do projeto Java.
-- [ ] Criar a classe de inicialização e a configuração mínima do Spring Boot, se essa tecnologia for confirmada.
-- [ ] Adicionar instruções reproduzíveis para compilar, executar e testar.
-- [ ] Confirmar que a estrutura de código e testes é reconhecida pela ferramenta de build.
+## Etapa 4/5 — frontend
 
-## Prioridade 2: completar o domínio e testar regras
+- [x] Projeto Vite + React 19 + TypeScript + Tailwind 4 + React Router + Leaflet + Axios criado do zero.
+- [x] Login com erro inline em português; sessão em `sessionStorage`.
+- [x] Painel com cards, filtros, busca e polling de 5 s; `EM ABERTO: 0` verificado no cenário inicial.
+- [x] Alerta sonoro implementado no recebimento de chamado `NOVO` (áudio não auditado por microfone; apenas o disparo do código foi exercitado).
+- [x] Detalhe com mapa OpenStreetMap, GPS, horário, elevação, sensores, notificações e ações.
+- [x] Despachar e encerrar exercitados pela interface; notificação conferida no detalhe.
+- [x] Sensores com criação/edição, ativação lógica e estados de carregamento/erro (CRUD validado pela API; clique no modal de criação não automatizado).
+- [x] Simulador com presets, prévia, envio por sensor, envio automático, histórico e reset (preset "Incêndio" exercitado pela interface).
+- [x] Layout responsivo em 390, 768 e 1280 px sem rolagem horizontal nas quatro rotas principais.
+- [x] Ações fixas e "Iniciar rota" visíveis em 390 px.
+- [x] Alvos de toque com pelo menos 44 px após ajuste nos links do cabeçalho e nos controles do Leaflet.
+- [ ] Validação com leitor de tela e em dispositivo físico real.
 
-- [ ] Modelar sensores e leituras com identificador, tipo, localização, valor e instante da medição, conforme o escopo acordado.
-- [ ] Implementar as classes concretas dos sensores escolhidos e suas regras de limite crítico.
-- [ ] Implementar uma ocorrência/alerta que associe leituras relevantes, avalie a urgência e registre seu estado.
-- [ ] Definir o despacho como uma ação de domínio verificável, sem alegar integração real com equipes antes de implementá-la.
-- [ ] Revisar validações e encapsulamento dos modelos existentes; não armazenar ou exibir senhas em texto puro.
-- [ ] Criar testes unitários para limites, leituras inválidas, cálculo de urgência e transições de estado.
+## Etapa 6 — entrega
 
-## Prioridade 3: criar o serviço de aplicação
+- [x] README com pré-requisitos, comandos, credencial, endpoints, roteiro e limitações.
+- [x] `docs/DECISOES.md` com uma decisão por ambiguidade encontrada.
+- [x] `docs/diagrama-de-classes.md` fiel ao código implementado.
+- [x] `./mvnw clean test` e `npm run build` executados com sucesso.
+- [x] Evidências de aceite registradas no README e relatadas ao usuário.
+- [x] Commit final da Etapa 6 na branch atual, sem push.
 
-- [ ] Definir endpoints para receber leituras e consultar sensores e alertas, caso uma API REST seja aprovada.
-- [ ] Validar entradas e retornar erros consistentes para requisições inválidas.
-- [ ] Escolher e configurar persistência; documentar como iniciar o banco e preparar o esquema.
-- [ ] Separar modelos de domínio, objetos de entrada/saída e regras de negócio quando necessário.
-- [ ] Proteger endpoints e credenciais; documentar autenticação e autorização compatíveis com o escopo acadêmico.
-- [ ] Criar testes de integração para os fluxos principais da API e persistência.
+## Fora do escopo / não implementado
 
-## Prioridade 4: integrar o dispositivo IoT
-
-- [ ] Registrar modelo do microcontrolador, sensores, ligações e limites elétricos usados no protótipo.
-- [ ] Implementar firmware para ler os sensores escolhidos e enviar medições ao serviço.
-- [ ] Tratar indisponibilidade de rede, leituras inválidas e envio repetido de dados.
-- [ ] Testar a comunicação com dados simulados antes de validar o hardware real.
-- [ ] Documentar os limites do protótipo: não usar testes com fogo real; não apresentar o sistema como equipamento certificado de segurança.
-
-## Prioridade 5: validar e preparar a entrega
-
-- [ ] Criar diagrama de casos de uso e diagrama de classes atualizados com o código.
-- [ ] Criar diagrama de arquitetura e sequência do fluxo dispositivo → serviço → alerta.
-- [ ] Adicionar protótipo de interface ou painel somente se fizer parte dos requisitos confirmados.
-- [ ] Executar e registrar testes; incluir evidências reproduzíveis e resultados reais da demonstração.
-- [ ] Atualizar README com pré-requisitos, configuração, comandos, exemplos e limitações.
-- [ ] Preparar roteiro de demonstração e relatório acadêmico; distinguir claramente o que está pronto e o que é proposta futura.
-- [ ] Revisar acessibilidade, segurança, tratamento de dados e limitações antes da apresentação.
-
-## Colaboração e controle de versão
-
-- [ ] Confirmar que Nicolas aceitou o convite de colaboração, se ainda estiver pendente.
-- [ ] Dividir as tarefas entre os integrantes e registrar responsáveis e prazos após a confirmação da equipe.
-- [ ] Trabalhar em branches por funcionalidade, abrir Pull Requests e revisar as alterações antes de integrar.
+- [ ] Docker e MQTT reais (arquivos Docker existentes são legado).
+- [ ] Integração real com Twilio/WhatsApp.
+- [ ] WebSocket/SSE — o frontend usa polling de 5 s.
+- [ ] Spring Security/JWT — a autenticação é simulada com sessão local.
+- [ ] Internacionalização (i18n).
+- [ ] Sensores físicos, firmware ESP32 e uso com fogo real.
+- [ ] Envio para produção ou publicação do repositório remoto.
