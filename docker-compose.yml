@@ -1,0 +1,14 @@
+services:
+  api: 
+    build: .
+    ports: 
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:sqlite:/data/selfalert.db
+    volumes:
+    - ./data:/data
+
+
+volumes:
+    selfalert-data:
+    
