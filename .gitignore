@@ -58,4 +58,8 @@ build/
 .vscode/
 
 *.db
+safe-alert.db
+safe-alert.db-journal
+safe-alert.db-wal
+safe-alert.db-shm
 data/
