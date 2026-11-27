@@ -65,10 +65,10 @@ public class BombeiroService {
         return BombeiroResponse.de(repository.save(bombeiro));
     }
 
-    public void desativar(Long id) {
+    public BombeiroResponse definirAtivo(Long id, Boolean ativo) {
         Bombeiro bombeiro = buscarEntidade(id);
-        bombeiro.setAtivo(false);
-        repository.save(bombeiro);
+        bombeiro.setAtivo(ativo);
+        return BombeiroResponse.de(repository.save(bombeiro));
     }
 
     private void aplicarDados(Bombeiro bombeiro, BombeiroRequest request) {

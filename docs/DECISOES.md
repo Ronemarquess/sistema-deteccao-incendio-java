@@ -10,3 +10,5 @@ Uma linha por decisão tomada diante de ambiguidades do prompt.
 - 2026-11-27: Chamados históricos fechados são criados em `NOVO`, recebem sensores e só então recebem o status final, para respeitar a regra de que chamados fechados não aceitam novos sensores.
 - 2026-11-27: Em chamados já existentes, a elevação de temperatura usa baseline fixo de 25 °C; em chamados novos, usa a média das últimas 5 leituras NORMAL do sensor (ou 25 °C se não houver).
 - 2026-11-27: Testes automatizados usam SQLite em memória compartilhada, separado do arquivo `safe-alert.db` de desenvolvimento.
+- 2026-11-27: Credencial inválida retorna 401 (corpo de erro padronizado) para permitir mensagem inline no login; as demais regras de negócio retornam 409.
+- 2026-11-27: O chamado histórico `ENCERRADO` do seed usa `encerradoEm` fixo no início do dia para que "Encerrados hoje" seja 1 mesmo quando a aplicação inicia perto da meia-noite.

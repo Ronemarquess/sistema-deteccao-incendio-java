@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -122,10 +123,11 @@ public class SeedData {
             return;
         }
         LocalDateTime agora = LocalDateTime.now();
+        LocalDateTime encerradoHoje = LocalDate.now().atStartOfDay().plusMinutes(1);
 
         Chamado encerrado = novoChamado(
                 StatusChamado.ENCERRADO, sensores.get(0), 62.0, 36.0,
-                agora.minusHours(3), agora.minusHours(2), bombeiro);
+                agora.minusHours(3), encerradoHoje, bombeiro);
         chamadoRepository.save(encerrado);
 
         Chamado falsoAlarme = novoChamado(

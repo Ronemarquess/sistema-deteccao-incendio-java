@@ -15,6 +15,8 @@ import br.com.estacio.incendio.model.StatusChamado;
 import br.com.estacio.incendio.repository.ChamadoRepository;
 import br.com.estacio.incendio.repository.LeituraSensorRepository;
 import br.com.estacio.incendio.repository.SensorRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +40,19 @@ public class LeituraService {
         this.sensorRepository = sensorRepository;
         this.chamadoRepository = chamadoRepository;
         this.avaliadorRisco = avaliadorRisco;
+    }
+
+    @Transactional(readOnly = true)
+    public List<LeituraDto> listar(Long sensorId, int limite) {
+        int tamanho = Math.max(1, Math.min(limite, 200));
+        if (sensorId == null) {
+            return leituraRepository.findAll(
+                    PageRequest.of(0, tamanho, Sort.by(Sort.Direction.DESC, "instanteMedicao")))
+                    .stream().map(LeituraDto::de).toList();
+        }
+        return leituraRepository
+                .findBySensorIdOrderByInstanteMedicaoDesc(sensorId, PageRequest.of(0, tamanho))
+                .stream().map(LeituraDto::de).toList();
     }
 
     public LeituraResultado registrar(LeituraRequest request) {
